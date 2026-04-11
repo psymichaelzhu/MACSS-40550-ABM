@@ -4,6 +4,47 @@ from agents import SchellingAgent
 from mesa.datacollection import DataCollector
 import numpy as np # [modification] 
 
+
+# [modification] @ line 10~20: helper function to compute boundary mixing
+def compute_boundary_mixing(model):
+    """
+    B = unlike adjacent pairs / all occupied adjacent pairs
+    Only checks right and down neighbors to avoid double counting.
+    """
+    unlike_edges = 0
+    total_edges = 0
+
+    width = model.grid.width
+    height = model.grid.height
+
+    for x in range(width):
+        for y in range(height):
+            agent = model.grid[x][y]
+            if agent is None:
+                continue
+
+            # right neighbor
+            if x + 1 < width:
+                neighbor = model.grid[x + 1][y]
+                if neighbor is not None:
+                    total_edges += 1
+                    if neighbor.type != agent.type:
+                        unlike_edges += 1
+
+            # down neighbor
+            if y + 1 < height:
+                neighbor = model.grid[x][y + 1]
+                if neighbor is not None:
+                    total_edges += 1
+                    if neighbor.type != agent.type:
+                        unlike_edges += 1
+
+    return unlike_edges / total_edges if total_edges > 0 else 0
+
+def compute_boundary_segregation(model):
+    B = compute_boundary_mixing(model)
+    return 1 - B
+
 class SchellingModel(Model):
     ## Define initiation, requiring all needed parameter inputs
     def __init__(self, growth_rate = 0.1, time_horizon = 3, width = 30, height = 30, density = 0.7, satisfaction_threshold = 0.5, group_one_share = 0.7, radius = 1, seed = None):
@@ -48,6 +89,8 @@ class SchellingModel(Model):
                 ###################
                 "average_contact_history" : lambda m : np.mean(m.contact_matrix[np.triu_indices_from(m.contact_matrix, k=1)]), # average contact history between all unique agent dyads (excluding diagonal)
                 "average_segregation_score" : lambda m : np.mean([a.segregation_score for a in m.agents]), # average segregation score of all agents
+                "boundary_mixing" : compute_boundary_mixing, # boundary mixing
+                "boundary_segregation" : compute_boundary_segregation, # boundary segregation
                 ###################
             }
         )
@@ -73,6 +116,6 @@ class SchellingModel(Model):
                 same_type_count = sum(1 for n in neighbors if n.type == agent.type)
                 agent.segregation_score = same_type_count / len(neighbors)
             else:
-                agent.segregation_score = 1
+                agent.segregation_score = 0
         ###################
         self.datacollector.collect(self)

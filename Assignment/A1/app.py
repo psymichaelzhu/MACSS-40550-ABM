@@ -48,7 +48,7 @@ model_params = {
     },
     "satisfaction_threshold": {
         "type": "SliderFloat",
-        "value": 0.5,
+        "value": 0.9,
         "label": "Satisfaction Threshold",
         "min": 0,
         "max": 1,
@@ -72,7 +72,7 @@ model_params = {
     },
     "growth_rate": {
         "type": "SliderFloat",
-        "value": 0.1,
+        "value": 0.5,
         "label": "Growth Rate",
         "min": 0,
         "max": 1,
@@ -80,7 +80,7 @@ model_params = {
     },
     "time_horizon": {
         "type": "SliderInt",
-        "value": 3,
+        "value": 10,
         "label": "Time Horizon",
         "min": 0,
         "max": 10,
@@ -102,13 +102,15 @@ SpaceGraph = make_space_component(agent_portrayal, draw_grid=False)
 ###################
 ContactHistoryPlot = make_plot_component({"average_contact_history": "tab:blue"})
 SegregationScorePlot = make_plot_component({"average_segregation_score": "tab:orange"})
+BoundaryMixingPlot = make_plot_component({"boundary_mixing": "tab:purple"})
+BoundarySegregationPlot = make_plot_component({"boundary_segregation": "tab:brown"})
 ###################
 
 
 ## Instantiate page inclusing all components
 page = SolaraViz(
     schelling_model,
-    components=[SpaceGraph, HappyPlot, ContactHistoryPlot, SegregationScorePlot],
+    components=[SpaceGraph, HappyPlot, ContactHistoryPlot, BoundarySegregationPlot],
     model_params=model_params,
     name="Schelling Segregation Model",
 )

@@ -43,3 +43,12 @@ line plot
 efficiency:
 matrix
 cache
+
+
+realisitic: malleable relationship
+however, it is still not enough to mitigate the segregation: converge, but still segregated
+
+relational growth mindset is helpful:
+converge without segregation
+
+metric to quantify segregation
