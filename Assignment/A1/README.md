@@ -6,7 +6,7 @@ Residential segregation based on social identity such as ethnicity remains a per
 
 The *contact hypothesis* (Allport, 1954) offers a corrective: sustained contact between members of different groups tends to reduce prejudice and increase mutual acceptance. In an agent-based framework, this suggests that satisfaction with a dissimilar neighbor should grow with the duration of co-residence — what we term the **contact model**.
 
-The contact model, however, omits a psychological dimension: whether agents *believe* that cross-group relationships can improve through contact. Growth mindset theory (Dweck, 2006), originally proposed for intelligence, has been extended to interpersonal relationships as the *relationship growth mindset*: Agents who believe that relationships will improve over time may invest more in cross-group relationships, accelerating the process by which contact translates into acceptance.
+The contact model, however, omits a psychological dimension: whether agents *believe* that cross-group relationships can improve through contact. Growth mindset theory (Dweck, 2006), originally proposed for intelligence, has been extended to interpersonal relationships as the *relationship growth mindset*: Agents who believe that relationships will improve over time may persist more in cross-group relationships, accelerating the process by which contact translates into acceptance.
 
 We formalize and compare three agent-based models — the classic Schelling model, the contact model, and the growth mindset model — in terms of emergent intergroup segregation. 
 
@@ -42,7 +42,7 @@ Our central question is: **does believing that relationships can improve reduce 
 
 **Termination condition** Same as the Schelling model.
 
-**Core assumption** Intergroup contact reduces prejudice over time: satisfaction with a dissimilar neighbor increases when two agents have been co-residents.
+**Core assumption** Intergroup contact reduces prejudice over time: satisfaction increases when two dissimilar agents have been co-residents.
 
 **Core parameters**
 
@@ -65,19 +65,20 @@ Our central question is: **does believing that relationships can improve reduce 
 - *Growth rate*: same as the contact model. We assume that agents have perfect knowledge of the growth process, therefore a single growth rate parameter applies to both the environment and the agents.
 - *Time horizon*: the number of future steps agents consider when projecting relationship satisfaction.
 
-To some extent, the traditional Schelling model considers only the present, the contact model incorporates memory of past interaction, and the growth mindset model additionally incorporates future-oriented evaluation.
 
-> **Implementation note** Our implementation focuses on the growth mindset model because it is the most general specification, with growth rate and time horizon as free parameters. The contact model is a special case in which time horizon = 0, meaning that agents account for past contact but do not project future improvement. The classic Schelling model is a further special case in which both growth rate = 0 and time horizon = 0, so satisfaction depends only on current neighbor composition.
+
+> **Implementation note** Our implementation focuses on the growth mindset model because it is the most general specification, with growth rate and time horizon as free parameters. The contact model is a special case in which time horizon = 0, meaning that agents account for past contact but do not project future improvement. The classic Schelling model is a further special case in which both growth rate = 0 and time horizon = 0, so satisfaction depends only on current neighbor composition.  
+> To some extent, the traditional Schelling model considers only the present, the contact model incorporates memory of past interaction, and the growth mindset model additionally incorporates future-oriented evaluation.
 
 ---
 
 # Results
 
-When we consider a high satisfaction threshold (0.9),  
+To highlight the differences between the three models, we consider a high satisfaction threshold (0.9). This means that the agent is quite demanding in searching for a living environment.  
 1.	In the classic Schelling model (growth rate = 0, time horizon = 0), agents keep moving around the grid and never settle down. The share of happy agents remains around 11%.  
-2.	In the contact model (growth rate = 0.4, time horizon = 10), the share of happy agents gradually increases over time. After a relatively long period, the system eventually settles down, but the final pattern is still clearly segregated.  
-3.	In the growth mindset model (growth rate = 0.4, time horizon = 10), agents are able to settle down without producing segregation. In many runs, they are already satisfied with their initial neighbors and therefore have little incentive to relocate.
+2.	In the contact model (growth rate = 0.4, time horizon = 0), the share of happy agents gradually increases over time. After a relatively long period, the system eventually settles down, but the final pattern is still clearly segregated.  
+3.	In the growth mindset model (growth rate = 0.4, time horizon = 10), agents are able to settle down without producing segregation. Most agents are already satisfied with their initial neighbors and therefore have little incentive to relocate.
 
 Overall, our simulation results suggest that relational growth mindset can produce stability without segregation. Contact alone, by contrast, is not sufficient to substantially reduce segregation.  
-We argue that this is because, in the contact model, contact does improve relationship satisfaction, but agents remain myopic in their decisions. They evaluate only their history and do not take future improvement into account, leaving limited room for contact to prevent segregation.  
-Our results therefore suggest that cultivating the belief that relationships can improve over time may be important for reducing segregation, and may offer a potential intervention perspective for improving intergroup relations.
+We argue that this is because, in the contact model, contact does improve relationship satisfaction over time, but agents remain myopic in their decisions. If an agent has a certain number of dissimilar neighbors around, it tends to move away, so there is no chance to improve impression through contact, Therefore, the role of contact in preventing relationship segregation is limited.  
+Our results therefore suggest that cultivating the belief that relationships can improve over time may be important for reducing segregation. This may offer a potential intervention perspective for improving intergroup relations.
