@@ -46,11 +46,11 @@ model_params = {
         "max": 1,
         "step": 0.01,
     },
-   # [modification] naming and default value
+    # [modification] @ line 49~53: change name and default value
     #<<<<<<<<<<<<<<<<<<<<<<<
     "satisfaction_threshold": {
         "type": "SliderFloat",
-        "value": 0.9, # we consider a high threshold as default to highlight the difference between different models
+        "value": 0.9, # we consider a high threshold
         "label": "Satisfaction Threshold",
         "min": 0,
         "max": 1,
@@ -73,7 +73,7 @@ model_params = {
         "max": 5,
         "step": 1,
     },
-    # [modification] new parameters
+    # [modification] @ line 73~78: new parameters
     #<<<<<<<<<<<<<<<<<<<<<<<
     "growth_rate": {
         "type": "SliderFloat",
@@ -103,10 +103,19 @@ HappyPlot = make_plot_component({"share_happy": "tab:green"})
 ## Define space component
 SpaceGraph = make_space_component(agent_portrayal, draw_grid=False)
 
+# [modification] @ line 102~104: two additional plots
+#<<<<<<<<<<<<<<<<<<<<<<<
+ContactHistoryPlot = make_plot_component({"average_contact_history": "tab:blue"})
+SegregationScorePlot = make_plot_component({"average_segregation_score": "tab:orange"})
+BoundaryMixingPlot = make_plot_component({"boundary_mixing": "tab:purple"})
+BoundarySegregationPlot = make_plot_component({"boundary_segregation": "tab:brown"})
+#>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
 ## Instantiate page inclusing all components
 page = SolaraViz(
     schelling_model,
-    components=[SpaceGraph, HappyPlot],
+    components=[SpaceGraph, HappyPlot, ContactHistoryPlot, BoundarySegregationPlot], # [modification] new plots displayed
     model_params=model_params,
     name="Schelling Segregation Model",
 )
