@@ -26,9 +26,8 @@ Mesa implementation of the Standing Ovation Problem.
 
 ### Implementation challenges
 
-- **Coordinate system translation.** Mesa's `SingleGrid` uses `(col, row)` ordering, while our first implementation used `(row, col)`. Therefore, we need to translate the coordinates between the two systems.
+- **Coordinate system translation.** Mesa's `SingleGrid` uses `(col, row)` ordering, while our original implementation used `(row, col)`. Therefore, we need to translate the coordinates between the two systems.
 - **Synchronous updating requires a full state snapshot.** True simultaneous updating means every agent must observe last step's world, not the partially-updated current state. This requires taking a dict snapshot of all agent states before any update occurs, then passing it into each agent's `social_update` call, rather than reading neighbours' `.standing` attributes directly.
-
 
 ## AI Usage Disclosure
 
